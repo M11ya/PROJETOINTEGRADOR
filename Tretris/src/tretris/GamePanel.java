@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    public static final int LARGURA = 1000;
-    public static final int ALTURA = 700;
+    public static final int LARGURA = 1280;
+    public static final int ALTURA = 720;
     final int FPS = 60;
     Thread gameThread;
     PlayManager pm;
@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        if(KeyHandler.pausePressed == false) {
+        if(KeyHandler.pausePressed == false && pm.gameOver == false) {
         pm.update();
 
         }

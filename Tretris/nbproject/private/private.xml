@@ -4,17 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/tretris/Tretris.java</file>
+            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/tretris/PlayManager.java</file>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Mino.java</file>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Block.java</file>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/tretris/GamePanel.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Mino_Z2.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Mino_Quadrado.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Mino_L2.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/tretris/PlayManager.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Mino_Z1.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Mino_Bar.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Mino_T.java</file>
-            <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/tretris/KeyHandler.java</file>
             <file>file:/C:/Users/Aluno/Documents/NetBeansProjects/Tretris/src/mino/Mino_L1.java</file>
         </group>
     </open-files>

@@ -14,6 +14,8 @@ public class Mino {
     public int direction = 1; //AS 4 DIREÇÕES 
     boolean leftCollision, rightCollision, bottomCollision;
     public boolean active = true;
+    public boolean deactivating;
+    int deactivateCouter = 0;
 
     public void create(Color c) {
         b[0] = new Block(c);
@@ -27,6 +29,18 @@ public class Mino {
     }
 
     public void setXY(int x, int y) {
+        b[0].x = x;
+        b[0].y = y;
+
+        b[1].x = x + Block.SIZE;
+        b[1].y = y;
+
+        b[2].x = x;
+        b[2].y = y + Block.SIZE;
+
+        b[3].x = x + Block.SIZE;
+        b[3].y = y + Block.SIZE;
+
     }
 
     public void updateXY(int direction) {
@@ -66,10 +80,13 @@ public class Mino {
         rightCollision = false;
         bottomCollision = false;
 
+        // Checar a colisão do bloco statico
+        checkStaticBlockCollision();
+
         // Checar Frame Colisão
         // PAREDE ESQUEDA
         for (int i = 0; i < b.length; i++) {
-            if (b[i].x < PlayManager.left_x) {
+            if (b[i].x == PlayManager.left_x) {
                 leftCollision = true;
             }
         }
@@ -83,7 +100,7 @@ public class Mino {
         // CHÃO
         for (int i = 0; i < b.length; i++) {
             if (b[i].y + Block.SIZE == PlayManager.bottom_y) {
-                rightCollision = true;
+                bottomCollision = true;
             }
         }
 
@@ -94,6 +111,10 @@ public class Mino {
         leftCollision = false;
         rightCollision = false;
         bottomCollision = false;
+
+        // Checar a colisão do bloco statico
+        checkStaticBlockCollision();
+   
 
         // Checar Frame Colisão
         // PAREDE ESQUEDA
@@ -112,12 +133,49 @@ public class Mino {
         // CHÃO
         for (int i = 0; i < b.length; i++) {
             if (tempB[i].y + Block.SIZE > PlayManager.bottom_y) {
-                rightCollision = true;
+                bottomCollision = true;
             }
         }
     }
 
+    private void checkStaticBlockCollision() {
+
+        // BUGADO PRA KARALHO
+        for (int i = 0; i < PlayManager.staticBlocks.size(); i++) {
+
+            int targetX = PlayManager.staticBlocks.get(i).x;
+            int targetY = PlayManager.staticBlocks.get(i).y;
+
+            // Checar em baixo
+            for (int ii = 0; ii < b.length; ii++) {
+                if (b[ii].y + Block.SIZE == targetY && b[ii].x == targetX) {
+                    bottomCollision = true;
+                }
+
+            }
+
+            for (int ii = 0; ii < b.length; ii++) {
+                if (b[ii].x - Block.SIZE == targetX && b[ii].y == targetY);
+                {
+                    leftCollision = true;
+                }
+            }
+            for (int ii = 0; ii < b.length; ii++) {
+                if (b[ii].x + Block.SIZE == targetX && b[ii].y == targetY);
+                {
+                    rightCollision = true;
+                }
+            }
+        }
+
+    }
+
     public void update() {
+
+        if (deactivating) {
+            deactivating();
+            return;
+        }
 
         //MOVER O MINO
         if (KeyHandler.upPressed) {
@@ -185,7 +243,7 @@ public class Mino {
         }
 
         if (bottomCollision) {
-            active = false;
+            deactivating = true;
         } else {
             autoDropContador++; // O CONTADOR AUMENTA A CADA FRAME
             if (autoDropContador == PlayManager.dropInterval) {
@@ -195,6 +253,24 @@ public class Mino {
                 b[2].y += Block.SIZE;
                 b[3].y += Block.SIZE;
                 autoDropContador = 0;
+            }
+        }
+
+    }
+
+    private void deactivating() {
+
+        deactivateCouter++;
+
+        //Espere 45 frames para desativar
+        if (deactivateCouter == 45) {
+
+            deactivateCouter = 0;
+            checkMovementCollision(); // Checa se o fundo está batendo
+
+            // Se o fundo está batendo depois dos 45 frames; desativa o Bloco
+            if (bottomCollision) {
+                active = false;
             }
         }
 
